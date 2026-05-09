@@ -17,24 +17,26 @@ The entire architecture is built using a strict, modular **MVC-like design**, ex
 The codebase is strictly separated by responsibility to ensure maintainability and scalability:
 
 ```text
-fraud_detection_project/
-├── EDA.ipynb                 # Comprehensive Data Analysis & Visualization
-├── models_saved/             # Pre-trained pipeline models (.pkl)
-│   ├── scaler.pkl
-│   ├── pca_model.pkl
-│   ├── kmeans_model.pkl
-│   └── xgboost_model.pkl
-├── src/                      # Core ML Logic Pipeline
-│   ├── preprocessor.py       # Cleans, maps, and encodes raw data
-│   ├── feature_engine.py     # Applies Scaling, PCA, and K-Means segmentation
-│   ├── predictor.py          # Executes XGBoost inference
-│   ├── continuous_learner.py # Handles partial/batch retraining
-│   └── train.py              # Training script to generate models
+AI_final/
 ├── api/
 │   └── main.py               # FastAPI endpoints (/predict, /update-model)
 ├── frontend/
 │   └── app.py                # Streamlit UI for inference and batch uploads
+├── models_saved/             # Pre-trained pipeline models (.pkl)
+│   ├── kmeans_model.pkl
+│   ├── pca_model.pkl
+│   ├── scaler.pkl
+│   └── xgboost_model.pkl
+├── src/                      # Core ML Logic Pipeline
+│   ├── continuous_learner.py # Handles partial/batch retraining
+│   ├── feature_engine.py     # Applies Scaling, PCA, and K-Means segmentation
+│   ├── predictor.py          # Executes XGBoost inference
+│   ├── preprocessor.py       # Cleans, maps, and encodes raw data
+│   └── train.py              # Training script to generate models
+├── test/
+│   └── generate.py           # Script to generate test batches
 ├── Dockerfile                # Containerization setup
+├── EDA.ipynb                 # Comprehensive Data Analysis & Visualization
 ├── entrypoint.sh             # Startup script for FastAPI + Streamlit
 └── requirements.txt          # Python dependencies
 ```
