@@ -120,6 +120,9 @@ def update_model(batch: BatchUpdateRequest):
         update_success = learner.update_model_batch(X_new_features, y_new)
         
         if update_success:
+            # Reload the predictor with the updated model so /predict uses the new trees
+            predictor.reload_model()
+            logger.info("Predictor model reloaded after continuous learning update.")
             return BatchUpdateResponse(
                 status="success",
                 message="Model successfully updated with the new batch.",
