@@ -28,7 +28,7 @@ class FeatureEngine:
         df_final = df_cleaned.copy()
         os.makedirs("models_saved", exist_ok=True)
 
-        cols_to_scale = ['amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest', 'newbalanceDest', 'step']
+        cols_to_scale = ['amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest', 'newbalanceDest']
         existing_scale_cols = [c for c in cols_to_scale if c in df_final.columns]
         
         self.scaler = RobustScaler()
@@ -61,7 +61,7 @@ class FeatureEngine:
         df_final = df_cleaned.copy()
 
         # 1. Scale continuous features
-        cols_to_scale = ['amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest', 'newbalanceDest', 'step']
+        cols_to_scale = ['amount', 'oldbalanceOrg', 'newbalanceOrig', 'oldbalanceDest', 'newbalanceDest']
         existing_scale_cols = [c for c in cols_to_scale if c in df_final.columns]
         
         if existing_scale_cols:

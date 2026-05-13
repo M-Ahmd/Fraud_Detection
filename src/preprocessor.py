@@ -13,12 +13,19 @@ class DataPreprocessor:
         
         if 'step' in df_cleaned.columns:
             df_cleaned['hour_of_day'] = df_cleaned['step'] % 24
-            
+            df_cleaned['day_of_month'] = (df_cleaned['step'] // 24) % 30
+
+        # Drop OrigType (derived from nameOrig) as it provides no useful signal
+        if 'nameOrig' in df_cleaned.columns:
+            df_cleaned['OrigType'] = df_cleaned['nameOrig'].str[0]
+            df_cleaned = df_cleaned.drop(columns=['OrigType'])
+
         if 'nameDest' in df_cleaned.columns:
             df_cleaned['DestType'] = df_cleaned['nameDest'].str[0]
             df_cleaned['DestType'] = df_cleaned['DestType'].map({'C': 0, 'M': 1}).fillna(0).astype(int)
 
-        df_cleaned = df_cleaned.drop(columns=['isFlaggedFraud', 'nameOrig', 'nameDest'], errors='ignore')
+        # Drop step (replaced by hour_of_day and day_of_month), isFlaggedFraud, and ID columns
+        df_cleaned = df_cleaned.drop(columns=['isFlaggedFraud', 'nameOrig', 'nameDest', 'step'], errors='ignore')
         
         if 'type' in df_cleaned.columns:
             for cat in self.type_categories:
